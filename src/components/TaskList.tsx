@@ -1,56 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
 
-import { Plus } from 'lucide-react';
+import PocketBase from 'pocketbase';
 
 interface Task {
     id: string;
     title: string;
-    completed: boolean;
+    description: string;
+    completed?: boolean;
+    expand: {
+        subject: {
+            title: string;
+        };
+    };
 }
 
-const initialTasks: Task[] = [
-    { id: '1', title: 'Complete TypeScript assignment', completed: false },
-    { id: '2', title: 'Read React documentation', completed: true },
-    { id: '3', title: 'Buy groceries', completed: false },
-    { id: '4', title: 'Prepare for next exam', completed: false },
-    { id: '5', title: 'Clean the house', completed: true }
-];
-
 export function TaskList() {
-    const [tasks, setTasks] = useState<Task[]>(initialTasks);
-    const [newTask, setNewTask] = useState('');
-
-    const addTask = () => {
-        if (newTask.trim()) {
-            setTasks([...tasks, { id: Date.now().toString(), title: newTask, completed: false }]);
-            setNewTask('');
-        }
-    };
+    const [tasks, setTasks] = useState<Task[]>([]);
 
     const toggleTask = (id: string) => {
         setTasks(tasks.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task)));
     };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const pb = new PocketBase('https://pb.igportals.eu');
+
+            const records = (await pb.collection('tasks').getFullList({
+                sort: '-subject',
+                expand: 'subject'
+            })) as unknown as Task[];
+
+            console.log(records);
+
+            setTasks(records);
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <div className='space-y-4'>
-            <div className='flex space-x-2'>
-                <Input
-                    type='text'
-                    value={newTask}
-                    onChange={(e) => setNewTask(e.target.value)}
-                    placeholder='Add a new task'
-                    className='flex-grow'
-                />
-                <Button onClick={addTask}>
-                    <Plus className='mr-2 size-4' /> Add Task
-                </Button>
-            </div>
             <ul className='space-y-2'>
                 {tasks.map((task) => (
                     <li key={task.id} className='flex items-center space-x-2'>
@@ -58,7 +51,7 @@ export function TaskList() {
                         <label
                             htmlFor={task.id}
                             className={`flex-grow ${task.completed ? 'text-muted-foreground line-through' : ''}`}>
-                            {task.title}
+                            {task.expand.subject.title} | {task.title}
                         </label>
                     </li>
                 ))}
