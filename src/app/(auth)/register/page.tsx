@@ -25,7 +25,7 @@ export default function RegisterPage() {
             await login(emailRef.current.value, passwordRef.current.value);
             fireToast('success', 'Úspešne zaregistrovaný!');
 
-            return router.push('/onboarding');
+            return router.push('/settings');
         }
         console.error(regRes);
         fireToast('error', 'Pri registrácii nastala chyba, kontaktujte prosím administrátora.');

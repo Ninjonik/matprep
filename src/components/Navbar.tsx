@@ -27,7 +27,7 @@ const navigationItems = [
         items: [
             { title: 'Prihlásiť sa', href: '/login' },
             { title: 'Registrovať sa', href: '/register' },
-            { title: 'Onboarding', href: '/onboarding' }
+            { title: 'Nastavenie', href: '/settings' }
         ]
     }
 ];

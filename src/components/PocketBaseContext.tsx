@@ -2,6 +2,8 @@
 
 import { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
+import UserObject from '@/interfaces/UserObject';
+
 import { jwtDecode } from 'jwt-decode';
 import ms from 'ms';
 import PocketBase, { RecordAuthResponse, RecordModel } from 'pocketbase';
@@ -15,7 +17,7 @@ interface PocketContextType {
     register: (email: string, password: string) => Promise<RecordModel | false>;
     login: (email: string, password: string) => Promise<RecordAuthResponse<RecordModel> | false>;
     logout: () => void;
-    user: any | null;
+    user: UserObject | null;
     token: string | null;
     pb: PocketBase;
 }
@@ -41,12 +43,12 @@ export const PocketProvider = ({ children }: { children: ReactNode }) => {
     const pb = useMemo(() => new PocketBase(BASE_URL), []);
 
     const [token, setToken] = useState(pb.authStore.token);
-    const [user, setUser] = useState(pb.authStore.model);
+    const [user, setUser] = useState<UserObject | null>(pb.authStore.model as UserObject);
 
     useEffect(() => {
         return pb.authStore.onChange((token, model) => {
             setToken(token);
-            setUser(model);
+            setUser(model as UserObject);
         });
     }, []);
 

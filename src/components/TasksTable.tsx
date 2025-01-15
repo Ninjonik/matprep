@@ -1,11 +1,8 @@
-'use client';
+import React, { useState } from 'react';
 
-import React, { useEffect, useState } from 'react';
-
-import { usePocket } from '@/components/PocketBaseContext';
 import { Filter, StandardTable } from '@/components/StandardTable';
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { MultiSelect } from '@/components/ui/multi-select';
 import SubjectObject from '@/interfaces/SubjectObject';
 import TaskObject from '@/interfaces/TaskObject';
 import {
@@ -22,49 +19,36 @@ import {
 
 const columnHelper = createColumnHelper<TaskObject>();
 
-export default function OnboardingPage() {
-    const { pb, user } = usePocket();
+interface TasksTableProps {
+    tasks: TaskObject[];
+    setTasks: React.Dispatch<React.SetStateAction<TaskObject[]>>;
+    selectedTasks: string[];
+    setSelectedTasks: React.Dispatch<React.SetStateAction<string[]>>;
+    filteredSubjects: string[];
+    setFilteredSubjects: React.Dispatch<React.SetStateAction<string[]>>;
+    subjects: SubjectObject[];
+    setSubjects: React.Dispatch<React.SetStateAction<SubjectObject[]>>;
+    selectedSubjects: string[];
+    setSelectedSubjects: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
-    const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
-    const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
-    const [subjects, setSubjects] = useState<SubjectObject[]>([]);
-    const [tasks, setTasks] = useState<TaskObject[]>([]);
-
+export const TasksTable = ({
+    tasks,
+    setTasks,
+    selectedTasks,
+    setSelectedTasks,
+    filteredSubjects,
+    setFilteredSubjects,
+    subjects,
+    setSubjects,
+    selectedSubjects,
+    setSelectedSubjects
+}: TasksTableProps) => {
     const rerender = React.useReducer(() => ({}), {})[1];
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-
-    const handleSubjectToggle = (subjectId: string) => {
-        setSelectedSubjects((prev) =>
-            prev.includes(subjectId) ? prev.filter((id) => id !== subjectId) : [...prev, subjectId]
-        );
-    };
-
     const handleTaskToggle = (taskId: string) => {
         setSelectedTasks((prev) => (prev.includes(taskId) ? prev.filter((id) => id !== taskId) : [...prev, taskId]));
     };
-
-    useEffect(() => {
-        const fetchTasks = async () => {
-            const records = (await pb.collection('tasks').getFullList({
-                sort: '-subject',
-                expand: 'subject'
-            })) as unknown as TaskObject[];
-
-            setTasks(records);
-        };
-
-        const fetchSubjects = async () => {
-            const records = (await pb.collection('subjects').getFullList({
-                sort: '-id'
-            })) as unknown as SubjectObject[];
-
-            setSubjects(records);
-        };
-
-        fetchSubjects();
-        fetchTasks();
-    }, []);
-
     const columns = [
         columnHelper.accessor((row) => row.id, {
             id: 'checkbox',
@@ -77,7 +61,10 @@ export default function OnboardingPage() {
                     />
                 </span>
             ),
-            header: () => <span className={'flex items-center justify-center'}>Zahrnúť?</span>
+            header: () => <span className={'m-4 flex items-center justify-center'}>Zahrnúť?</span>,
+            meta: {
+                filterVariant: 'none'
+            }
         }),
         columnHelper.accessor((row) => row.title, {
             id: 'title',
@@ -98,12 +85,12 @@ export default function OnboardingPage() {
             ),
             header: () => <span>Predmet</span>,
             filterFn: (row, columnId, filterValue) => {
-                if ((!filterValue && filterValue !== 0) || filterValue === '') return true;
+                if (!filterValue || filterValue?.length < 1) return true;
 
-                return row.original.expand.subject.id === filterValue;
+                return filterValue.includes(row.original.expand.subject.id);
             },
             meta: {
-                filterVariant: 'select'
+                filterVariant: 'multiSelect'
             }
         })
     ];
@@ -129,35 +116,13 @@ export default function OnboardingPage() {
         onPaginationChange: setPagination
     });
 
-    const handleSave = () => {
-        console.log('Selected Subjects:', selectedSubjects);
-        console.log('Selected Tasks:', selectedTasks);
-        // Here you would typically send this data to your backend
-    };
-
     return (
-        <div className='container mx-auto w-full p-4'>
-            <h1 className='mb-4 text-2xl font-bold'>Onboarding</h1>
-
-            <div className='mb-8'>
-                <h2 className='mb-2 text-xl font-semibold'>Vyber predmety</h2>
-                <div className='flex flex-wrap gap-4'>
-                    {subjects.map((subject) => (
-                        <div key={subject.id} className='flex items-center space-x-2'>
-                            <Checkbox
-                                id={`subject-${subject.id}`}
-                                checked={selectedSubjects.includes(subject.id)}
-                                onCheckedChange={() => handleSubjectToggle(subject.id)}
-                            />
-                            <label htmlFor={`subject-${subject.id}`}>{subject.title}</label>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
+        <div className='mb-8'>
+            <h2 className='mb-2 text-xl font-semibold'>2. Vyber témy, ktoré zahrnúť do plánu</h2>
+            <h4>Počet zahrnutých tém: {selectedTasks.length}</h4>
             <StandardTable
                 table={table}
-                title={'Témy'}
+                title={''}
                 data={tasks}
                 pagination={true}
                 customHeader={table.getHeaderGroups().map((headerGroup) => (
@@ -183,22 +148,32 @@ export default function OnboardingPage() {
                                             {header.column.getCanFilter() && (
                                                 <Filter
                                                     column={header.column}
-                                                    select={
-                                                        <select
-                                                            onChange={(e) =>
-                                                                header.column.setFilterValue(parseInt(e.target.value))
-                                                            }
-                                                            value={header.column.getFilterValue()?.toString()}
-                                                            className={'select select-xs mt-2'}>
-                                                            <option value=''>Všetky</option>
-                                                            {subjects.map((subject, index) => (
-                                                                <option
-                                                                    key={'statuses_map_orders_' + index}
-                                                                    value={index}>
-                                                                    {subject.title}
-                                                                </option>
-                                                            ))}
-                                                        </select>
+                                                    multiSelect={
+                                                        <>
+                                                            <MultiSelect
+                                                                title='Predmety'
+                                                                options={subjects
+                                                                    .filter((subject) =>
+                                                                        selectedSubjects.includes(subject.id)
+                                                                    )
+                                                                    .map((subject) => {
+                                                                        return {
+                                                                            label: subject.title,
+                                                                            value: subject.id
+                                                                        };
+                                                                    })}
+                                                                selectedValues={filteredSubjects}
+                                                                onSelectionChange={(selectedValues) => {
+                                                                    setFilteredSubjects(selectedValues);
+
+                                                                    header.column.setFilterValue(
+                                                                        selectedValues && selectedValues.length
+                                                                            ? selectedValues
+                                                                            : undefined
+                                                                    );
+                                                                }}
+                                                            />
+                                                        </>
                                                     }
                                                 />
                                             )}
@@ -210,8 +185,8 @@ export default function OnboardingPage() {
                     </tr>
                 ))}
             />
-
-            {selectedSubjects.length > 0 && <Button onClick={handleSave}>Save Preferences</Button>}
         </div>
     );
-}
+};
+
+export default TasksTable;

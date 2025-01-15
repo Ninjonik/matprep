@@ -7,7 +7,7 @@ import { Column, RowData, Table } from '@tanstack/table-core';
 
 declare module '@tanstack/react-table' {
     interface ColumnMeta<TData extends RowData, TValue> {
-        filterVariant?: 'text' | 'range' | 'select' | 'none' | 'number';
+        filterVariant?: 'text' | 'range' | 'select' | 'multiSelect' | 'none' | 'number';
     }
 }
 
@@ -49,7 +49,6 @@ interface ComponentProps {
     setState?: React.Dispatch<React.SetStateAction<any>>;
     buttonName?: string;
     buttonTo?: string;
-    onBoarding?: string;
     additionalData?: any;
     customButton?: ReactNode;
     customParams?: any[];
@@ -68,7 +67,6 @@ export function StandardTable({
     setState,
     buttonName,
     buttonTo,
-    onBoarding,
     additionalData,
     customButton,
     customParams
@@ -87,32 +85,39 @@ export function StandardTable({
             <UITable className='table-zebra table'>
                 {header && (
                     <TableHeader>
-                        {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => (
-                                    <TableHead key={header.id} colSpan={header.colSpan} className={'p-4'}>
-                                        {!header.isPlaceholder && (
-                                            <>
-                                                <div
-                                                    {...{
-                                                        className: header.column.getCanSort()
-                                                            ? 'cursor-pointer select-none'
-                                                            : '',
-                                                        onClick: header.column.getToggleSortingHandler()
-                                                    }}>
-                                                    {flexRender(header.column.columnDef.header, header.getContext())}
-                                                    {{
-                                                        asc: ' 🔼',
-                                                        desc: ' 🔽'
-                                                    }[header.column.getIsSorted() as string] ?? null}
-                                                </div>
-                                                {header.column.getCanFilter() && <Filter column={header.column} />}
-                                            </>
-                                        )}
-                                    </TableHead>
-                                ))}
-                            </TableRow>
-                        ))}
+                        {customHeader
+                            ? customHeader
+                            : table.getHeaderGroups().map((headerGroup) => (
+                                  <TableRow key={headerGroup.id}>
+                                      {headerGroup.headers.map((header) => (
+                                          <TableHead key={header.id} colSpan={header.colSpan} className={'p-4'}>
+                                              {!header.isPlaceholder && (
+                                                  <>
+                                                      <div
+                                                          {...{
+                                                              className: header.column.getCanSort()
+                                                                  ? 'cursor-pointer select-none'
+                                                                  : '',
+                                                              onClick: header.column.getToggleSortingHandler()
+                                                          }}>
+                                                          {flexRender(
+                                                              header.column.columnDef.header,
+                                                              header.getContext()
+                                                          )}
+                                                          {{
+                                                              asc: ' 🔼',
+                                                              desc: ' 🔽'
+                                                          }[header.column.getIsSorted() as string] ?? null}
+                                                      </div>
+                                                      {header.column.getCanFilter() && (
+                                                          <Filter column={header.column} />
+                                                      )}
+                                                  </>
+                                              )}
+                                          </TableHead>
+                                      ))}
+                                  </TableRow>
+                              ))}
                     </TableHeader>
                 )}
 
@@ -210,7 +215,15 @@ export function StandardTable({
     );
 }
 
-export function Filter({ column, select }: { column: Column<any>; select?: ReactNode }) {
+export function Filter({
+    column,
+    select,
+    multiSelect
+}: {
+    column: Column<any>;
+    select?: ReactNode;
+    multiSelect?: ReactNode;
+}) {
     const columnFilterValue = column.getFilterValue();
     const { filterVariant } = column.columnDef.meta ?? {};
 
@@ -240,6 +253,10 @@ export function Filter({ column, select }: { column: Column<any>; select?: React
 
     if (filterVariant === 'select') {
         return select || null;
+    }
+
+    if (filterVariant === 'multiSelect') {
+        return multiSelect || null;
     }
 
     if (filterVariant === 'number') {

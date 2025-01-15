@@ -24,7 +24,7 @@ export default function LoginPage() {
         if (logRes) {
             fireToast('success', 'Úspešne prihlásený!');
 
-            return router.push('/onboarding');
+            return router.push('/settings');
         }
         console.error(logRes);
         fireToast('error', 'Neplatné prihlasovacie údaje.');

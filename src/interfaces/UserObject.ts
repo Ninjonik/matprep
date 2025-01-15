@@ -1,11 +1,13 @@
-import TaskObject from '@/interfaces/TaskObject';
+import SubjectObject from '@/interfaces/SubjectObject';
 
-interface UserObject {
+export default interface UserObject {
     avatar?: string;
     collectionId: string;
     collectionName: string;
-    selectedTasks: TaskObject[];
+    selectedTasks: string[];
     completedTasks: string[];
+    selectedSubjects: string[];
+    completedSubjects: string[];
     created: string;
     email: string;
     emailVisibility: boolean;
@@ -15,4 +17,10 @@ interface UserObject {
     updated: string;
     username: string;
     verified: boolean;
+}
+
+export interface UserObjectSelectedSubjects extends UserObject {
+    expand: {
+        selectedSubjects: SubjectObject[];
+    };
 }

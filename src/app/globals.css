@@ -64,3 +64,62 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* GLOWING BUTTONS */
+
+.glow-primary {
+    box-shadow: 0 0 5px hsl(var(--primary));
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.glow-primary:hover {
+    box-shadow: 0 0 15px hsl(var(--primary));
+}
+
+.glow-destructive {
+    box-shadow: 0 0 5px hsl(var(--destructive));
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.glow-destructive:hover {
+    box-shadow: 0 0 15px hsl(var(--destructive));
+}
+
+.glow-outline {
+    box-shadow: 0 0 5px hsl(var(--accent));
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.glow-outline:hover {
+    box-shadow: 0 0 15px hsl(var(--accent));
+}
+
+.glow-secondary {
+    box-shadow: 0 0 5px hsl(var(--secondary));
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.glow-secondary:hover {
+    box-shadow: 0 0 15px hsl(var(--secondary));
+}
+
+.glow-ghost {
+    box-shadow: 0 0 5px transparent;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.glow-ghost:hover {
+    box-shadow: 0 0 15px hsl(var(--accent));
+}
+
+.glow-link {
+    box-shadow: 0 0 5px transparent;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.glow-link:hover {
+    box-shadow: 0 0 15px hsl(var(--primary));
+}
+
+
+
