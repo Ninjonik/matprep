@@ -3,23 +3,12 @@
 import { useEffect, useState } from 'react';
 
 import { Checkbox } from '@/components/ui/checkbox';
+import TaskObject from '@/interfaces/TaskObject';
 
 import PocketBase from 'pocketbase';
 
-interface Task {
-    id: string;
-    title: string;
-    description: string;
-    completed?: boolean;
-    expand: {
-        subject: {
-            title: string;
-        };
-    };
-}
-
 export function TaskList() {
-    const [tasks, setTasks] = useState<Task[]>([]);
+    const [tasks, setTasks] = useState<TaskObject[]>([]);
 
     const toggleTask = (id: string) => {
         setTasks(tasks.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task)));
@@ -32,7 +21,7 @@ export function TaskList() {
             const records = (await pb.collection('tasks').getFullList({
                 sort: '-subject',
                 expand: 'subject'
-            })) as unknown as Task[];
+            })) as unknown as TaskObject[];
 
             console.log(records);
 

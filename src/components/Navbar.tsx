@@ -22,24 +22,22 @@ import { Menu } from 'lucide-react';
 
 const navigationItems = [
     { title: 'Home', href: '/' },
-    { title: 'About', href: '/about' },
     {
-        title: 'Products',
+        title: 'Profil',
         items: [
-            { title: 'Product A', href: '/products/a' },
-            { title: 'Product B', href: '/products/b' },
-            { title: 'Product C', href: '/products/c' }
+            { title: 'Prihlásiť sa', href: '/login' },
+            { title: 'Registrovať sa', href: '/register' },
+            { title: 'Onboarding', href: '/onboarding' }
         ]
-    },
-    { title: 'Contact', href: '/contact' }
+    }
 ];
 
 export function Navbar() {
     return (
-        <nav className='border-b'>
+        <nav className='h-[7dvh] border-b'>
             <div className='flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8'>
                 <div className='text-xl font-semibold'>
-                    <Link href='/'>Your Site Name</Link>
+                    <Link href='/'>MaturitaPrep 2025</Link>
                 </div>
                 <MobileNav />
                 <DesktopNav />
