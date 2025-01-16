@@ -5,10 +5,12 @@ import { useEffect, useState } from 'react';
 import { ExamCountdown } from '@/components/ExamCountDown';
 import { usePocket } from '@/components/PocketBaseContext';
 import SubjectObject from '@/interfaces/SubjectObject';
+import TaskObject from '@/interfaces/TaskObject';
 import { UserObjectSelectedSubjects } from '@/interfaces/UserObject';
 
-const   UserCountdowns = () => {
+const UserCountdowns = () => {
     const { user, pb } = usePocket();
+    const [allTasks, setAllTasks] = useState<TaskObject[]>([]);
 
     const [selectedSubjects, setSelectedSubjects] = useState<SubjectObject[]>([]);
     useEffect(() => {
@@ -22,14 +24,27 @@ const   UserCountdowns = () => {
         fetchSelectedSubjects();
     }, [user?.selectedSubjects]);
 
+    useEffect(() => {
+        const fetchTasks = async () => {
+            const records = (await pb.collection('tasks').getFullList({
+                sort: '-subject',
+                expand: 'subject'
+            })) as unknown as TaskObject[];
+
+            setAllTasks(records);
+        };
+        fetchTasks();
+    }, []);
+
+    console.log(allTasks);
+
     return (
         <div className='mb-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
-            {selectedSubjects.map((subject) => (
-                <ExamCountdown
-                    key={`ussm_${subject.id}`}
-                    subject={subject}
-                />
-            ))}
+            {allTasks &&
+                allTasks.length > 0 &&
+                selectedSubjects.map((subject) => (
+                    <ExamCountdown key={`ussm_${subject.id}`} subject={subject} allTasks={allTasks} />
+                ))}
         </div>
     );
 };

@@ -1,4 +1,5 @@
 import SubjectObject from '@/interfaces/SubjectObject';
+import TaskObject from '@/interfaces/TaskObject';
 
 export default interface UserObject {
     avatar?: string;
@@ -22,5 +23,11 @@ export default interface UserObject {
 export interface UserObjectSelectedSubjects extends UserObject {
     expand: {
         selectedSubjects: SubjectObject[];
+    };
+}
+
+export interface UserObjectSelectedTasks extends UserObject {
+    expand: {
+        selectedTasks: TaskObject[];
     };
 }

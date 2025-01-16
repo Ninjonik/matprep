@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from 'react';
 
+import Link from 'next/link';
+
 import { usePocket } from '@/components/PocketBaseContext';
 import TasksTable from '@/components/TasksTable';
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from '@/components/ui/button';
 import SubjectObject from '@/interfaces/SubjectObject';
 import TaskObject from '@/interfaces/TaskObject';
 import fireToast from '@/utils/fireToast';
@@ -52,14 +54,33 @@ export default function TaskList() {
     }, [user]);
 
     const saveSelectedTasks = async () => {
-        if(!user) return;
-        const record = await pb.collection('users').update(user.id, {completedTasks: completedTasks});
-        fireToast("success", "Dokončené témy boli úspešne uložené.")
-    }
+        if (!user) return;
+        const record = await pb.collection('users').update(user.id, { completedTasks: completedTasks });
+        fireToast('success', 'Dokončené témy boli úspešne uložené.');
+    };
 
     return (
         <div className='container mx-auto flex w-full flex-col gap-4 p-4'>
-            <Button className={"w-32 absolute place-self-end"} onClick={saveSelectedTasks}>Uložiť</Button>
+            {selectedSubjects?.length > 0 ? (
+                <div className={'relative'}>
+                    <Button className={'absolute right-0 top-0 w-32 place-self-end'} onClick={saveSelectedTasks}>
+                        Uložiť
+                    </Button>
+                </div>
+            ) : (
+                <div className={'w-full'}>
+                    <h2>
+                        Pre používanie aplikácie sa prosím{' '}
+                        <Link className={buttonVariants({ variant: 'outline' })} href={'/login'}>
+                            prihláste
+                        </Link>{' '}
+                        alebo{' '}
+                        <Link className={buttonVariants({ variant: 'outline' })} href={'/register'}>
+                            zaregistrujte
+                        </Link>
+                    </h2>
+                </div>
+            )}
             {selectedSubjects?.length > 0 && (
                 <TasksTable
                     filteredSubjects={filteredSubjects}
@@ -69,7 +90,7 @@ export default function TaskList() {
                     setSelectedTasks={setSelectedTasks}
                     subjects={subjects}
                     tasks={tasks}
-                    page={"index"}
+                    page={'index'}
                     completedTasks={completedTasks}
                     setCompletedTasks={setCompletedTasks}
                 />
