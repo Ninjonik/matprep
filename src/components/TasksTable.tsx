@@ -21,34 +21,39 @@ const columnHelper = createColumnHelper<TaskObject>();
 
 interface TasksTableProps {
     tasks: TaskObject[];
-    setTasks: React.Dispatch<React.SetStateAction<TaskObject[]>>;
     selectedTasks: string[];
     setSelectedTasks: React.Dispatch<React.SetStateAction<string[]>>;
     filteredSubjects: string[];
     setFilteredSubjects: React.Dispatch<React.SetStateAction<string[]>>;
     subjects: SubjectObject[];
-    setSubjects: React.Dispatch<React.SetStateAction<SubjectObject[]>>;
     selectedSubjects: string[];
-    setSelectedSubjects: React.Dispatch<React.SetStateAction<string[]>>;
+    page?: "index" | "settings";
+    completedTasks?: string[];
+    setCompletedTasks?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const TasksTable = ({
     tasks,
-    setTasks,
     selectedTasks,
     setSelectedTasks,
     filteredSubjects,
     setFilteredSubjects,
     subjects,
-    setSubjects,
     selectedSubjects,
-    setSelectedSubjects
+    page = "settings",
+    completedTasks,
+    setCompletedTasks
 }: TasksTableProps) => {
     const rerender = React.useReducer(() => ({}), {})[1];
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
+
     const handleTaskToggle = (taskId: string) => {
+        if(completedTasks && setCompletedTasks){
+            return setCompletedTasks((prev) => (prev.includes(taskId) ? prev.filter((id) => id !== taskId) : [...prev, taskId]));
+        }
         setSelectedTasks((prev) => (prev.includes(taskId) ? prev.filter((id) => id !== taskId) : [...prev, taskId]));
     };
+
     const columns = [
         columnHelper.accessor((row) => row.id, {
             id: 'checkbox',
@@ -56,12 +61,12 @@ export const TasksTable = ({
                 <span className={'flex items-center justify-center'}>
                     <Checkbox
                         id={`task-${info.row.original.id}`}
-                        checked={selectedTasks.includes(info.row.original.id)}
+                        checked={(completedTasks && setCompletedTasks) ? completedTasks.includes(info.row.original.id) : selectedTasks.includes(info.row.original.id)}
                         onCheckedChange={() => handleTaskToggle(info.row.original.id)}
                     />
                 </span>
             ),
-            header: () => <span className={'m-4 flex items-center justify-center'}>Zahrnúť?</span>,
+            header: () => <span className={'m-4 flex items-center justify-center'}>{page === "settings" ? "Zahrnúť?" : "Hotovo?"}</span>,
             meta: {
                 filterVariant: 'none'
             }
@@ -73,8 +78,8 @@ export const TasksTable = ({
         }),
         columnHelper.accessor((row) => row.description, {
             id: 'description',
-            cell: (info) => <span>{info.getValue()}</span>,
-            header: () => <span>Popis</span>
+            cell: (info) => <span className={"hidden md:block"}>{info.getValue()}</span>,
+            header: () => <span className={"hidden md:block"}>Popis</span>
         }),
         columnHelper.accessor((row) => row.expand.subject.id, {
             id: 'subject',
@@ -118,15 +123,24 @@ export const TasksTable = ({
 
     return (
         <div className='mb-8'>
-            <h2 className='mb-2 text-xl font-semibold'>2. Vyber témy, ktoré zahrnúť do plánu</h2>
-            <h4>Počet zahrnutých tém: {selectedTasks.length}</h4>
+            {page === "settings" ? (
+            <>
+                <h2 className='mb-2 text-xl font-semibold'>2. Vyber témy, ktoré zahrnúť do plánu</h2>
+                <h4>Počet zahrnutých tém: {selectedTasks.length}</h4>
+            </>) : (
+                <div>
+                    <h4>Počet zahrnutých tém: {selectedTasks.length}</h4>
+                    <h4>Počet dokončených tém: {completedTasks?.length || 0} ({completedTasks?.length || 0 / selectedTasks.length * 100}%)</h4>
+                </div>
+            )}
+            
             <StandardTable
                 table={table}
                 title={''}
                 data={tasks}
                 pagination={true}
                 customHeader={table.getHeaderGroups().map((headerGroup) => (
-                    <tr key={headerGroup.id}>
+                    <tr key={headerGroup.id} className={"p-16"}>
                         {headerGroup.headers.map((header) => {
                             return (
                                 <th key={header.id} colSpan={header.colSpan}>

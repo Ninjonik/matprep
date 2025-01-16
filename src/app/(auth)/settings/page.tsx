@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { usePocket } from '@/components/PocketBaseContext';
 import TasksTable from '@/components/TasksTable';
@@ -108,10 +108,7 @@ export default function Page() {
                     setFilteredSubjects={setFilteredSubjects}
                     selectedSubjects={selectedSubjects}
                     selectedTasks={selectedTasks}
-                    setSelectedSubjects={setSelectedSubjects}
                     setSelectedTasks={setSelectedTasks}
-                    setSubjects={setSubjects}
-                    setTasks={setTasks}
                     subjects={subjects}
                     tasks={tasks}
                 />

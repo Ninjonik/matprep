@@ -32,7 +32,9 @@ export default function RegisterPage() {
     };
 
     return (
-        <form className='flex h-full grow items-center justify-center bg-gray-100' onSubmit={handleOnSubmit}>
+        <form
+            className='flex h-full grow items-center justify-center bg-gray-100 dark:bg-gray-800'
+            onSubmit={handleOnSubmit}>
             <Card className='w-[350px]'>
                 <CardHeader>
                     <CardTitle>Register</CardTitle>

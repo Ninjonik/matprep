@@ -5,35 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1c3c444-4838-473b-a3f3-b9b1b8b52ebf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/git_toolbox_blame.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/git_toolbox_prj.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/TasksTable.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/UserCountdowns.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/badge.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/command.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/dialog.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/multi-select.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/popover.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/select.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/separator.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/table.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(auth)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(auth)/onboarding/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/settings/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(auth)/register/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/register/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ExamCountDown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ExamCountDown.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PocketBaseContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PocketBaseContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/StandardTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/StandardTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interfaces/SubjectObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interfaces/SubjectObject.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interfaces/UserObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interfaces/UserObject.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +34,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/Ninjonik/matprep.git&quot;,
-    &quot;accountId&quot;: &quot;7334b4a2-64a1-4bb7-964f-2f6381169648&quot;
+    &quot;accountId&quot;: &quot;1b87fae2-a343-424a-bb31-ceabdac3e99b&quot;
   }
 }</component>
   <component name="OptimizeOnSaveOptions">
@@ -83,6 +57,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "ReactCreateComponentLastSelected": "arrowFunctionComponent",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "code.cleanup.on.save": "true",
     "git-widget-placeholder": "main",
@@ -95,8 +70,8 @@
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "F:\\projekty\\matprep\\node_modules\\prettier",
     "rearrange.code.on.save": "true",
-    "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
-    "ts.external.directory.path": "F:\\projekty\\matprep\\node_modules\\typescript\\lib",
+    "settings.editor.selected.configurable": "actions.on.save",
+    "ts.external.directory.path": "C:\\Users\\student\\WebstormProjects\\matprep\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -117,7 +92,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-WS-242.21829.149" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
       </set>
     </attachedChunks>
   </component>
@@ -135,6 +110,8 @@
       <workItem from="1736875409242" duration="2994000" />
       <workItem from="1736924943968" duration="72000" />
       <workItem from="1736925026296" duration="7558000" />
+      <workItem from="1737010761359" duration="43000" />
+      <workItem from="1737010820036" duration="438000" />
     </task>
     <servers />
   </component>
