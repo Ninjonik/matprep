@@ -4,36 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1c3c444-4838-473b-a3f3-b9b1b8b52ebf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/git_toolbox_blame.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/git_toolbox_prj.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/TasksTable.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/UserCountdowns.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/badge.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/command.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/dialog.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/multi-select.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/popover.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/select.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/separator.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/table.tsx" afterDir="false" />
+    <list default="true" id="e1c3c444-4838-473b-a3f3-b9b1b8b52ebf" name="Changes" comment="- basic settings done and more stuff done at the homepage">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(auth)/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(auth)/onboarding/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/settings/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(auth)/register/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/register/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ExamCountDown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ExamCountDown.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PocketBaseContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PocketBaseContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/StandardTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/StandardTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/button.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interfaces/SubjectObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interfaces/SubjectObject.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/interfaces/UserObject.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/interfaces/UserObject.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,6 +108,15 @@
       <workItem from="1736924943968" duration="72000" />
       <workItem from="1736925026296" duration="7558000" />
     </task>
+    <task id="LOCAL-00001" summary="- basic settings done and more stuff done at the homepage">
+      <option name="closed" value="true" />
+      <created>1736971361667</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1736971361667</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,5 +124,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="- basic settings done and more stuff done at the homepage" />
+    <option name="LAST_COMMIT_MESSAGE" value="- basic settings done and more stuff done at the homepage" />
   </component>
 </project>
