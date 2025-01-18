@@ -84,7 +84,7 @@ export function StandardTable({
             </div>
             <UITable className='table-zebra table'>
                 {header && (
-                    <TableHeader>
+                    <TableHeader className={""}>
                         {customHeader
                             ? customHeader
                             : table.getHeaderGroups().map((headerGroup) => (
@@ -266,6 +266,7 @@ export function Filter({
                 placeholder={`Filtrovať...`}
                 type='number'
                 value={(columnFilterValue ?? '') as number}
+                className={"hidden md:block"}
             />
         );
     }
@@ -276,6 +277,7 @@ export function Filter({
             placeholder={`Filtrovať...`}
             type='text'
             value={(columnFilterValue ?? '') as string}
+            className={"hidden md:block"}
         />
     );
 }

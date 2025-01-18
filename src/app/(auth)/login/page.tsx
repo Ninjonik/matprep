@@ -14,7 +14,7 @@ import fireToast from '@/utils/fireToast';
 export default function LoginPage() {
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const { register, login } = usePocket();
+    const { login } = usePocket();
     const router = useRouter();
 
     const handleOnSubmit = async (evt: React.FormEvent) => {
@@ -24,14 +24,16 @@ export default function LoginPage() {
         if (logRes) {
             fireToast('success', 'Úspešne prihlásený!');
 
-            return router.push('/settings');
+            return router.push('/');
         }
         console.error(logRes);
         fireToast('error', 'Neplatné prihlasovacie údaje.');
     };
 
     return (
-        <form className='flex h-full grow items-center justify-center bg-gray-100' onSubmit={handleOnSubmit}>
+        <form
+            className='flex h-full grow items-center justify-center bg-gray-100 dark:bg-gray-900'
+            onSubmit={handleOnSubmit}>
             <Card className='w-[350px]'>
                 <CardHeader>
                     <CardTitle>Login</CardTitle>

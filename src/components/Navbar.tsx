@@ -21,7 +21,7 @@ import { cn } from '@/lib/utils';
 import { Menu } from 'lucide-react';
 
 const navigationItems = [
-    { title: 'Home', href: '/' },
+    { title: 'Domov', href: '/' },
     {
         title: 'Profil',
         items: [
