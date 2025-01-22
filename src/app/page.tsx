@@ -15,7 +15,7 @@ export default function Home() {
                 <UserCountdowns />
                 <Card>
                     <CardHeader>
-                        <CardTitle>Témy na tento týždeň</CardTitle>
+                        <CardTitle>Maturitné Témy</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <TaskList />

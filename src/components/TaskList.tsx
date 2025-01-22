@@ -7,9 +7,8 @@ import Link from 'next/link';
 import { usePocket } from '@/components/PocketBaseContext';
 import TasksTable from '@/components/TasksTable';
 import { Button, buttonVariants } from '@/components/ui/button';
-import SubjectObject from '@/interfaces/SubjectObject';
-import TaskObject from '@/interfaces/TaskObject';
 import fireToast from '@/utils/fireToast';
+import { useCommonContext } from '@/components/CommonContext';
 
 export default function TaskList() {
     const { pb, user } = usePocket();
@@ -17,40 +16,19 @@ export default function TaskList() {
     const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
     const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
     const [filteredSubjects, setFilteredSubjects] = useState<string[]>([]);
-    const [subjects, setSubjects] = useState<SubjectObject[]>([]);
-    const [tasks, setTasks] = useState<TaskObject[]>([]);
     const [completedTasks, setCompletedTasks] = useState<string[]>([]);
+
+    const {tasks, subjects} = useCommonContext();
 
     useEffect(() => {
         setFilteredSubjects(selectedSubjects);
     }, [selectedSubjects]);
 
-    useEffect(() => {
-        const fetchTasks = async () => {
-            const records = (await pb.collection('tasks').getFullList({
-                sort: '-subject',
-                expand: 'subject'
-            })) as unknown as TaskObject[];
-
-            setTasks(records);
-        };
-
-        const fetchSubjects = async () => {
-            const records = (await pb.collection('subjects').getFullList({
-                sort: '-id'
-            })) as unknown as SubjectObject[];
-
-            setSubjects(records);
-        };
-
-        fetchSubjects();
-        fetchTasks();
-    }, []);
 
     useEffect(() => {
         setSelectedSubjects(user?.selectedSubjects || []);
         setSelectedTasks(user?.selectedTasks || []);
-        setCompletedTasks(user?.completedTasks || []);
+        setCompletedTasks(user?.completedTasks ?? []);
     }, [user]);
 
     const saveSelectedTasks = async () => {

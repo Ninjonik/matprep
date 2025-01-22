@@ -8,4 +8,5 @@ export default interface TaskObject {
     expand: {
         subject: SubjectObject;
     };
+    attachments: string[];
 }

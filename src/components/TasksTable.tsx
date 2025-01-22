@@ -7,15 +7,17 @@ import SubjectObject from '@/interfaces/SubjectObject';
 import TaskObject from '@/interfaces/TaskObject';
 import {
     ColumnFiltersState,
-    PaginationState,
     createColumnHelper,
     flexRender,
     getCoreRowModel,
     getFilteredRowModel,
     getPaginationRowModel,
     getSortedRowModel,
+    PaginationState,
     useReactTable
 } from '@tanstack/react-table';
+import { base_url } from '@/components/PocketBaseContext';
+import getFileIcon from '@/utils/getFileIcon';
 
 const columnHelper = createColumnHelper<TaskObject>();
 
@@ -81,6 +83,18 @@ export const TasksTable = ({
             cell: (info) => <span className={"hidden md:block"}>{info.getValue()}</span>,
             header: () => <span className={"hidden md:block"}>Popis</span>
         }),
+        columnHelper.accessor((row) => row.attachments, {
+            id: 'attachments',
+            cell: (info) => <span className={""}>{info.getValue().length > 0 && (
+                info.getValue().map((attachment) => (
+                    <a key={`${info.row.original.id}_${attachment}`} href={`${base_url}/api/files/tasks/${info.row.original.id}/${attachment}`} title={attachment} className={"hover:scale-150 transition-all"}>{getFileIcon(attachment.split('.').pop() || '')}</a>
+                ))
+            )}</span>,
+            header: () => <span className={""}></span>,
+            meta: {
+                filterVariant: "none",
+            }
+        }),
         columnHelper.accessor((row) => row.expand.subject.id, {
             id: 'subject',
             cell: (info) => (
@@ -97,7 +111,7 @@ export const TasksTable = ({
             meta: {
                 filterVariant: 'multiSelect'
             }
-        })
+        }),
     ];
 
     const [pagination, setPagination] = useState<PaginationState>({
@@ -133,7 +147,7 @@ export const TasksTable = ({
                     <h4>Počet dokončených tém: {completedTasks?.length || 0} ({completedTasks?.length || 0 / selectedTasks.length * 100}%)</h4>
                 </div>
             )}
-            
+
             <StandardTable
                 table={table}
                 title={''}

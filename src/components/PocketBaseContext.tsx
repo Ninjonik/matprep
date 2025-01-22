@@ -9,7 +9,7 @@ import ms from 'ms';
 import PocketBase, { RecordAuthResponse, RecordModel } from 'pocketbase';
 import { useInterval } from 'usehooks-ts';
 
-const BASE_URL = 'https://pb.igportals.eu';
+export const base_url = 'https://pb.igportals.eu';
 const fiveMinutesInMs = ms('5 minutes');
 const twoMinutesInMs = ms('2 minutes');
 
@@ -34,13 +34,13 @@ const defaultContextValue: PocketContextType = {
     },
     user: null,
     token: null,
-    pb: new PocketBase(BASE_URL)
+    pb: new PocketBase(base_url)
 };
 
 const PocketContext = createContext<PocketContextType>(defaultContextValue);
 
 export const PocketProvider = ({ children }: { children: ReactNode }) => {
-    const pb = useMemo(() => new PocketBase(BASE_URL), []);
+    const pb = useMemo(() => new PocketBase(base_url), []);
 
     const [token, setToken] = useState(pb.authStore.token);
     const [user, setUser] = useState<UserObject | null>(pb.authStore.model as UserObject);

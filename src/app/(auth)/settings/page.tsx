@@ -6,9 +6,8 @@ import { usePocket } from '@/components/PocketBaseContext';
 import TasksTable from '@/components/TasksTable';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import SubjectObject from '@/interfaces/SubjectObject';
-import TaskObject from '@/interfaces/TaskObject';
 import fireToast from '@/utils/fireToast';
+import { useCommonContext } from '@/components/CommonContext';
 
 export default function Page() {
     const { pb, user } = usePocket();
@@ -16,8 +15,8 @@ export default function Page() {
     const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
     const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
     const [filteredSubjects, setFilteredSubjects] = useState<string[]>([]);
-    const [subjects, setSubjects] = useState<SubjectObject[]>([]);
-    const [tasks, setTasks] = useState<TaskObject[]>([]);
+
+    const {tasks, subjects} = useCommonContext();
 
     const handleSubjectToggle = (subjectId: string) => {
         setSelectedSubjects((prev) => {
@@ -37,28 +36,6 @@ export default function Page() {
     useEffect(() => {
         setFilteredSubjects(selectedSubjects);
     }, [selectedSubjects]);
-
-    useEffect(() => {
-        const fetchTasks = async () => {
-            const records = (await pb.collection('tasks').getFullList({
-                sort: '-subject',
-                expand: 'subject'
-            })) as unknown as TaskObject[];
-
-            setTasks(records);
-        };
-
-        const fetchSubjects = async () => {
-            const records = (await pb.collection('subjects').getFullList({
-                sort: '-id'
-            })) as unknown as SubjectObject[];
-
-            setSubjects(records);
-        };
-
-        fetchSubjects();
-        fetchTasks();
-    }, []);
 
     useEffect(() => {
         setSelectedSubjects(user?.selectedSubjects || []);

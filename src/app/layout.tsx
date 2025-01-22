@@ -10,6 +10,7 @@ import { Navbar } from '@/components/Navbar';
 import { PocketProvider } from '@/components/PocketBaseContext';
 
 import { ToastContainer } from 'react-toastify';
+import { CommonContextProvider } from '@/components/CommonContext';
 
 const geistSans = localFont({
     src: './fonts/GeistVF.woff',
@@ -35,11 +36,14 @@ const Layout = ({ children }: Readonly<{ children: ReactNode }>) => {
                 <ThemeProvider attribute='class'>
                     <ToastContainer />
                     <PocketProvider>
-                        <Navbar />
-                        <section className={'flex h-full w-screen items-stretch justify-stretch'}>{children}</section>
-                        {/*                        <footer className='mt-auto h-[5dvh] border-t py-4 text-center text-sm text-muted-foreground'>
+                        <CommonContextProvider>
+                            <Navbar />
+                            <section className={'flex h-full w-screen items-stretch justify-stretch'}>{children}</section>
+                            {/*                        <footer className='mt-auto h-[5dvh] border-t py-4 text-center text-sm text-muted-foreground'>
                             &copy; 2023 Student Dashboard. All rights reserved.
                         </footer>*/}
+                        </CommonContextProvider>
+
                     </PocketProvider>
                 </ThemeProvider>
             </body>
