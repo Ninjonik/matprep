@@ -23,6 +23,7 @@ export const useCommonContext = () => {
             "useCommonContext must be used within a CommonContextProvider",
         );
     }
+
     return context;
 };
 
